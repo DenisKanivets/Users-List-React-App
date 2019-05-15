@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import Header from "./components/Header";
+import Table from "./components/Table";
+import Form from "./components/Form";
+import SimpleStorage from "react-simple-storage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+    state = {
+        data: []
+    };
+
+    componentDidMount() {
+        window.onload = () => {
+            let orderData = this.state.data;
+            orderData.sort(function (a, b) {
+                let nameA = a.date, nameB = b.date;
+                if (nameA < nameB)
+                    return -1;
+                if (nameA > nameB)
+                    return 1;
+                return 0;
+            });
+            this.setState({data: orderData})
+        }
+    }
+
+    refreshData = newData => {
+        this.setState({data: newData})
+    };
+
+    addUserToData = newUser => {
+        this.state.data.push(newUser);
+        this.setState({data: this.state.data})
+    };
+
+    render() {
+        return (
+            <>
+                <SimpleStorage parent={this}/>
+                <Header/>
+                <Form addUserToData={this.addUserToData}/>
+                <Table refreshData={this.refreshData} data={this.state.data}/>
+            </>
+        )
+    }
 }
 
 export default App;

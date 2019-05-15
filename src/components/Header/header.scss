@@ -1,0 +1,19 @@
+header {
+  background: #7A57D1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    height: 100px;
+    width: auto;
+  }
+
+  h1 {
+    padding: 40px;
+    font-size: 30px;
+    font-weight: 800;
+    font-style: italic;
+    color: #F5F7FA;
+  }
+}
